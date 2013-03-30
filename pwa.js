@@ -1,5 +1,3 @@
-//requestVars start
-
 /*
  * @author      Jesse Berman
  * @copyright   2008-01-31
@@ -12,7 +10,6 @@
  * Portions by Dieter Raber <dieter@dieterraber.net>
  * copyright   2004-12-27
 */
-
 
 /* pwa.js: a drop-in JavaScript utility that displays galleries from picasaweb.google.com in your website */
 
@@ -38,25 +35,7 @@
 
 */
 
-
-
 function readGet(){var _GET = new Array();var uriStr  = window.location.href.replace(/&amp;/g, '&');var paraArr, paraSplit;if(uriStr.indexOf('?') > -1){var uriArr  = uriStr.split('?');var paraStr = uriArr[1];}else{return _GET;}if(paraStr.indexOf('&') > -1){paraArr = paraStr.split('&');}else{paraArr = new Array(paraStr);}for(var i = 0; i < paraArr.length; i++){paraArr[i] = paraArr[i].indexOf('=') > -1 ? paraArr[i] : paraArr[i] + '=';paraSplit  = paraArr[i].split('=');_GET[paraSplit[0]] = decodeURI(paraSplit[1].replace(/\+/g, ' '));}return _GET;}var _GET = readGet();
-//requestVars end
-
-function resize(which, max) {
-// not used anymore! was scaling photos after they were loaded. using browser-native inline scaling instead,
-// until google fixes their image size request to work with any imgmax, rather than just 800 :-(
-  var elem = document.getElementById(which);
-  if (elem == undefined || elem == null) return false;
-  if (max == undefined) max = 658;
-  if (elem.width > elem.height) {
-    if (elem.width > max) elem.width = max;
-  } else {
-    if (elem.height > max) elem.height = max;
-  }
-}
-
-//$Update: May 10, 2007$
 
 function $(a){document.write(a);}
 var photosize;
@@ -65,15 +44,12 @@ if(!photosize){photosize = 800;}
 var columns;
 if(!columns || isNaN(columns) || columns < 1) {columns = 4;}
 
-
 //Global variables
 var photolist = new Array(); //this is used globally to store the entire list of photos in a given album, rather than pass the list around in a URL (which was getting rediculously long as a result)
 var album_name = ""; //this is used globally to store the album name, so we don't have to pass it around in the URL anymore either.
 var my_numpics = ""; //this is used globally to store the number of items in a particular album, so we don't have to pass it around in the URL anymore either.
 var prev = ""; //used in the navigation arrows when viewing a single item
 var next = "";//used in the navigation arrows when viewing a single item
-
-
 
 function picasaweb(j){ //returns the list of all albums for the user
 
@@ -84,13 +60,7 @@ function picasaweb(j){ //returns the list of all albums for the user
 
  // for each of the albums in the feed, grab its album cover thumbnail and the link to that album,
  // then display them in a table with 4 columns (along with the album title)
-
-  //This was the old way of grabbing the photos; since Google updated the feed, the media entry is better. :-)
-  //
-  //var img_begin = j.feed.entry[i].summary.$t.indexOf('src="')+5;
-  //var img_end = j.feed.entry[i].summary.$t.indexOf('?imgmax');
-  //var img_base = j.feed.entry[i].summary.$t.slice(img_begin, img_end);
-
+ 
   var img_base = j.feed.entry[i].media$group.media$content[0].url;
 
   var id_begin = j.feed.entry[i].id.$t.indexOf('albumid/')+8;
@@ -107,10 +77,6 @@ function picasaweb(j){ //returns the list of all albums for the user
  
 }
 
-
-
-
-
 function getphotolist(j){
 
 // This function is called just before displaying an item; it returns info about the item's current state within its parent
@@ -118,7 +84,6 @@ function getphotolist(j){
 // photos in that album (so we can link to them using navigation arrows).  This way we don't have to pass state information
 // around in the URL, which was resulting in hellishly long URLs (sometimes causing "URI too long" errors on some servers).
 
-// Get the number of pictures in the album.  Added 7/18/2007.
  my_numpics = j.feed.openSearch$totalResults.$t;
 
 // Also get the name of the album, so we don't have to pass that around either.  Added 7/18/2007.
@@ -169,10 +134,6 @@ function albums(j){  //returns all photos in a specific album
 
  for(i=0;i<j.feed.entry.length;i++){
 
-  //var img_begin = j.feed.entry[i].summary.$t.indexOf('src="')+5;
-  //var img_end = j.feed.entry[i].summary.$t.indexOf('?imgmax');
-  //var img_base = j.feed.entry[i].summary.$t.slice(img_begin, img_end);
-
   var img_base = j.feed.entry[i].media$group.media$content[0].url;
 
   var id_begin = j.feed.entry[i].id.$t.indexOf('photoid/')+8;
@@ -180,9 +141,9 @@ function albums(j){  //returns all photos in a specific album
   var id_base = j.feed.entry[i].id.$t.slice(id_begin, id_end);
   photoids[i]=id_base;
   
-
   // display the thumbnail (in a table) and make the link to the photo page, including the gallery name so it can be displayed.
-  // (apparently the gallery name isn't in the photo feed from the Picasa API, so we need to pass it as an argument in the URL) - removed the gallery name 7/18/2007
+  // (apparently the gallery name isn't in the photo feed from the Picasa API, so we need to pass it as an argument in the URL) - removed the gallery name 
+  
   var link_url = "?albumid="+_GET['albumid']+"&photoid="+id_base; //+"&photoids="+photoids;
   // disable the navigation entirely for really long URLs so we don't hit against the URL length limit.
   // note: this is probably not necessary now that we're no longer passing the photoarray inside the URL. 7/17/2007
@@ -200,13 +161,7 @@ function albums(j){  //returns all photos in a specific album
 
 }
 
-
-
-
-
-
 function photo(j){//returns exactly one photo
-
 
  var album_begin = j.entry.summary.$t.indexOf('href="')+6;
  var album_end = j.entry.summary.$t.indexOf('/photo#');
@@ -221,7 +176,6 @@ function photo(j){//returns exactly one photo
 
  var img_base = j.entry.media$group.media$content[0].url;
 
-
  // is this a video? If so, we will display that in the breadcrumbs below.
  var is_video = 0;
  if (j.entry.media$group.media$content.length > 1)
@@ -232,31 +186,17 @@ function photo(j){//returns exactly one photo
 	   is_video = 1;
    }
  }
-
  
  var photo_begin = j.entry.summary.$t.indexOf('href="')+6;
  var photo_end = j.entry.summary.$t.indexOf('"><img');
  var photo_link = j.entry.summary.$t.slice(photo_begin, photo_end);
  var photo_id = _GET['photoid'];
 
- //album name is now taken from the global variable instead. 7/18/2007
- //
- //var album_name_begin = j.entry.summary.$t.indexOf(username)+username.length+1;
- //var album_name_end = j.entry.summary.$t.indexOf('/photo#');
- //var album_name = j.entry.summary.$t.slice(album_name_begin, album_name_end);
-
  var album_id = _GET['albumid'];
  var my_next = next;
  var my_prev = prev;
  var photo_array = photolist;
- //var my_numpics = _GET['np'];
- //instead, we now get this through the global variable my_numpics. 7/18/2007
 
- //$("photo ids: "+_GET['photoids']+".<br><br>");
- //$("photolist: "+photo_array+".<br><br>");
-
- //var my_galleryname = _GET['galleryname'];
- //var my_fixed_galleryname = my_galleryname.slice(1, my_galleryname.length-1);
  var my_galleryname = album_name;
  var my_fixed_galleryname = album_name;
  var album_base_path = window.location.protocol + "//" + window.location.hostname+window.location.pathname +"?albumid="+ _GET['albumid'];
@@ -283,9 +223,6 @@ function photo(j){//returns exactly one photo
 //find preceding two and following two pictures in the array; used for the navigation arrows.
 //the arrows are already linked to the previous and next pics, which were passed in with the URL.
 //however, we need the ones that are two behind and two ahead so that we can pass that info along when we link to another photo.
-//
-//NOTE: as of 7/16/2007, the photo array is taken from global photolist (loaded in the getphotolist function) rather than from the URL.
-//This has eliminated the need for really long URLs, which were hitting up against the URL length limit in some extreme cases.
 for(i=0;i<photo_array.length;i++){
  if (photo_array[i]==photo_id)
  {
@@ -294,12 +231,9 @@ for(i=0;i<photo_array.length;i++){
 	 var n1 = photo_array[i+1]; //ID of the picture one ahead of this one; if null, we're at the end of the album
  }
 }
-//these will be passed along if we move to the next or previous photo - removed the gallery name 7/18/2007
-//var prev = album_base_path + "&photoid=" + p1 + "&np=" + my_numpics + "&galleryname=" + my_galleryname.replace("'","%27") + "&prev="+p2+ "&next="+photo_id; //+"&photoids="+photo_array;
-//var next = album_base_path + "&photoid=" + n1 + "&np=" + my_numpics + "&galleryname=" + my_galleryname.replace("'","%27") + "&prev="+photo_id+ "&next="+n2; //+"&photoids="+photo_array;
+
 var prev = album_base_path + "&photoid=" + p1; //+"&photoids="+photo_array;
 var next = album_base_path + "&photoid=" + n1; //+"&photoids="+photo_array;
-
 
 //Display the breadcrumbs
 var my_item_plural = "";
@@ -346,29 +280,16 @@ if (n1 == null) //we're at the last picture in the album; going forward takes us
  //now we will trap left and right arrow keys so we can scroll through the photos with a single keypress ;-) JMB 7/5/2007
  $('<script language="Javascript"> function testKeyCode( evt, intKeyCode ) { if ( window.createPopup ) return evt.keyCode == intKeyCode; else return evt.which == intKeyCode; } document.onkeydown = function ( evt ) { if ( evt == null ) evt = event; if ( testKeyCode( evt, 37 ) ) { window.location = "' + prev + '"; return false; } if ( testKeyCode( evt, 39 ) ) { window.location = "' + next + '"; return false; } } </script>');
 
-
- // an attempt at resampling the photo, rather than relying on the browser's internal resize function. doesn't work, unfortunately.
- //
- //$("<?php $filename='"+img_base+"?imgmax="+photosize+"'; $width = 658; $height = 1600; list($width_orig, $height_orig) = getimagesize($filename); ");
- //$("$ratio_orig = $width_orig/$height_orig; if ($width/$height > $ratio_orig) { $width = $height*$ratio_orig; } else { $height = $width/$ratio_orig; } ");
- //$("$image_p = imagecreatetruecolor($width, $height); $image = imagecreatefromjpeg($filename); ");
- //$("imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig); imagejpeg($image_p, null, 100); ?>");
-
 }
 
 if(_GET['photoid']&&_GET['albumid']){
 
  $('<script type="text/javascript" src="http://picasaweb.google.com/data/feed/base/user/'+username+'/albumid/'+_GET['albumid']+'?category=photo&alt=json&callback=getphotolist"></script>');//get the list of photos in the album and put it in the global "photolist" array so we can properly display the navigation arrows; this eliminates the need for really long URLs :-) 7/16/2007
- //$('http://picasaweb.google.com/data/entry/base/user/'+username+'/albumid/'+_GET['albumid']+'/photoid/'+_GET['photoid']+'?alt=json&callback=photo&np='+_GET['np']+'&galleryname='+_GET['galleryname']);
+ 
  $('<script type="text/javascript" src="http://picasaweb.google.com/data/entry/base/user/'+username+'/albumid/'+_GET['albumid']+'/photoid/'+_GET['photoid']+'?alt=json&callback=photo"></script>');//photo
-
-//$('<script type="text/javascript" src="http://picasaweb.google.com/data/entry/base/user/'+username+'/albumid/'+_GET['albumid']+'/photoid/'+_GET['photoid']+'?alt=json&callback=photo&np='+_GET['np']+'&galleryname='+_GET['galleryname']+'"></script>');//photo
 
 }else if(_GET['albumid']&&!_GET['photoid']){
  $('<script type="text/javascript" src="http://picasaweb.google.com/data/feed/base/user/'+username+'/albumid/'+_GET['albumid']+'?category=photo&alt=json&callback=albums"></script>');//albums
 }else{
  $('<script type="text/javascript" src="http://picasaweb.google.com/data/feed/base/user/'+username+'?category=album&alt=json&callback=picasaweb&access=public"></script>');//picasaweb
 }
-
-
-//$Update: January 31, 2008$
