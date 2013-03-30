@@ -273,8 +273,18 @@ if (n1 == null) //we're at the last picture in the album; going forward takes us
    { display_width = img_width; } //don't scale up photos that are narrower than our max width; disable this to set all photos to max width
 
  //at long last, display the image and its description. photos larger than max_width are scaled down; smaller ones are left alone
- $("<center><a border=0 target=PICASA href='"+photo_link+"'><img id='picture' width="+display_width+" src='"+img_base+"?imgmax="+photosize+"' class='pwimages' /></a></center>");
- $("<br><center><div style='margin-left:2px'>"+j.entry.media$group.media$description.$t+"</div></center></p>");
+ var is_video = false;
+ if (j.entry.media$group.media$content.length > 2) {
+  if (j.entry.media$group.media$content[2].medium == "video") {
+   is_video = true;
+  }
+ }
+ if (is_video) {
+  $("<video width='480' height='360' controls><source src='" + j.entry.media$group.media$content[2].url + "' type='video/mp4'><object data='" + j.entry.media$group.media$content[2].url + "' width='480' height='360'></object></video>");
+ } else {
+  $("<center><a border=0 target=PICASA href='"+photo_link+"'><img id='picture' width="+display_width+" src='"+img_base+"?imgmax="+photosize+"' class='pwimages' /></a></center>");
+  $("<br><center><div style='margin-left:2px'>"+j.entry.media$group.media$description.$t+"</div></center></p>");
+ }
 
 
  //now we will trap left and right arrow keys so we can scroll through the photos with a single keypress ;-) JMB 7/5/2007
