@@ -5,13 +5,16 @@
  * @license     http://www.gnu.org/copyleft/lesser.html
 */
 
-
 /*
  * Portions by Dieter Raber <dieter@dieterraber.net>
  * copyright   2004-12-27
 */
 
 /* pwa.js: a drop-in JavaScript utility that displays galleries from picasaweb.google.com in your website */
+
+/*
+ * Modified by Peter Morlion to support Picasa videos (http://petermorlion.blogspot.com, @petermorlion).
+ */
 
 /* This JavaScript file, when called from a webpage, will load all the thumbnail images of all the galleries
    in a user's Picasa Web Albums account into an HTML table that's 4 rows wide.  Clicking on any of the
