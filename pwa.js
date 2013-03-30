@@ -263,11 +263,11 @@ if (n1 == null) //we're at the last picture in the album; going forward takes us
   { var next = album_base_path }
 
  //the navigation panel: back, home, and next.
- $("<center><table border=0><tr valign=top>");
- if (photo_array.length > 1) { $("<td><a class='standard' href='"+prev+"'><img border=0 alt='Previous item' src='prev.jpg'></a> </td><td></td>"); }
- $("<td> <a class='standard' href='"+album_base_path+"'><img border=0 alt='Back to album index' src='home.jpg'></a> </td>");
- if (photo_array.length > 1) { $("<td></td><td> <a class='standard' href='"+next+"'><img border=0 alt='Next item' src='next.jpg'></a></td>"); }
- $("</tr></table></center><br>");
+ $("<div class='pwaNavigation'>");
+ if (photo_array.length > 1) { $("<a class='pwaNavigationLink' href='"+prev+"'><img border=0 alt='Previous item' src='prev.jpg'></a>"); }
+ $("<a class='pwaNavigationLink' href='"+album_base_path+"'><img border=0 alt='Back to album index' src='home.jpg'></a>");
+ if (photo_array.length > 1) { $("<a class='pwaNavigationLink' href='"+next+"'><img border=0 alt='Next item' src='next.jpg'></a>"); }
+ $("</div>");
 
  var max_width = 658; //max width for our photos
  var display_width = max_width;
