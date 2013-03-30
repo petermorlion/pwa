@@ -153,7 +153,6 @@ function albums(j){  //returns all photos in a specific album
   // Not a bad idea to leave it in, though, in case something goes seriously wrong and we need to revert to that method.
   if (link_url.length > 2048) { link_url = link_url.slice(0, link_url.indexOf('&photoids=')+10)+id_base; }
   $("<td valign=top><a href='"+link_url+"'><img src='"+img_base+"?imgmax=160&crop=1' class='pwimages' /></a>");
-  //$("<p><center><SPAN STYLE='font-size: 9px'>"+j.feed.entry[i].media$group.media$description.$t+"</span></center>");
   $("</td>");
 
   if (i % columns == columns-1) {
@@ -282,13 +281,14 @@ if (n1 == null) //we're at the last picture in the album; going forward takes us
    is_video = true;
   }
  }
+ 
+ $("<div class='pwaItem'>");
  if (is_video) {
   $("<video width='480' height='360' controls><source src='" + j.entry.media$group.media$content[2].url + "' type='video/mp4'><object data='" + j.entry.media$group.media$content[2].url + "' width='480' height='360'></object></video>");
  } else {
-  $("<center><a border=0 target=PICASA href='"+photo_link+"'><img id='picture' width="+display_width+" src='"+img_base+"?imgmax="+photosize+"' class='pwimages' /></a></center>");
-  $("<br><center><div style='margin-left:2px'>"+j.entry.media$group.media$description.$t+"</div></center></p>");
+  $("<a border=0 target=PICASA href='"+photo_link+"'><img id='picture' width="+display_width+" src='"+img_base+"?imgmax="+photosize+"' class='pwimages' /></a>");
  }
-
+ $("<br>"+j.entry.media$group.media$description.$t + "</div>");
 
  //now we will trap left and right arrow keys so we can scroll through the photos with a single keypress ;-) JMB 7/5/2007
  $('<script language="Javascript"> function testKeyCode( evt, intKeyCode ) { if ( window.createPopup ) return evt.keyCode == intKeyCode; else return evt.which == intKeyCode; } document.onkeydown = function ( evt ) { if ( evt == null ) evt = event; if ( testKeyCode( evt, 37 ) ) { window.location = "' + prev + '"; return false; } if ( testKeyCode( evt, 39 ) ) { window.location = "' + next + '"; return false; } } </script>');
