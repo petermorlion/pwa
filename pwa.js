@@ -296,7 +296,9 @@ if (n1 == null) //we're at the last picture in the album; going forward takes us
  
  $("<div class='pwa-item'>");
  if (is_video) {
-  $("<video width='480' height='360' controls><source src='" + j.entry.media$group.media$content[2].url + "' type='video/mp4'><object data='" + j.entry.media$group.media$content[2].url + "' width='480' height='360'></object></video>");
+  var autoplay_attribute = '';
+  if (autoplay) { autoplay_attribute = 'autoplay'; }
+  $("<video width='480' height='360' controls " + autoplay_attribute + "><source src='" + j.entry.media$group.media$content[2].url + "' type='video/mp4'><object data='" + j.entry.media$group.media$content[2].url + "' width='480' height='360'></object></video>");
  } else {
   $("<a border=0 target=PICASA href='"+photo_link+"'><img id='picture' width="+display_width+" src='"+img_base+"?imgmax="+photosize+"' class='pwimages' /></a>");
  }
