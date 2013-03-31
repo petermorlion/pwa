@@ -250,7 +250,7 @@ if (is_video == 1) //if it's a video, don't say it's a picture, say it's an "ite
 	item_label = "item";
 	item_label_caps = "Item";
 }
-//if (photo_array.length == 1) { var current_index_text = "Total of " + my_numpics + " " + item_label + my_item_plural; } else { var current_index_text = item_label_caps + " " + current_index + " of " + my_numpics; }
+
 var current_index_text = item_label_caps + " " + current_index + " of " + my_numpics;
 if (is_video == 1) { current_index_text = current_index_text + "&nbsp;&nbsp;[VIDEO]"; }  //show in the breadcrumbs that the item is a video
 $("<div style='margin-left:3px'><a class='standard' href='"+ window.location.protocol + "//" + window.location.hostname+window.location.pathname+"'>Gallery Home</a> &gt; <a class='standard' href='" + album_base_path + "'>" + my_fixed_galleryname + "</a> &gt; <!--" + img_filename + "-->" + current_index_text + "</div><div style='text-align:right; margin-right:3px; margin-top:-14px'><a target=PICASA class='standard' href='"+photo_link+"'>View this image in Picasa</a></div><br>");
@@ -263,10 +263,22 @@ if (n1 == null) //we're at the last picture in the album; going forward takes us
   { var next = album_base_path }
 
  //the navigation panel: back, home, and next.
- $("<div class='pwaNavigation'>");
- if (photo_array.length > 1) { $("<a class='pwaNavigationLink' href='"+prev+"'><img border=0 alt='Previous item' src='prev.jpg'></a>"); }
- $("<a class='pwaNavigationLink' href='"+album_base_path+"'><img border=0 alt='Back to album index' src='home.jpg'></a>");
- if (photo_array.length > 1) { $("<a class='pwaNavigationLink' href='"+next+"'><img border=0 alt='Next item' src='next.jpg'></a>"); }
+ var previousLink = "<img border=0 alt='Previous item' src='prev.jpg'>";
+ if (typeof previousText != 'undefined' && previousText !== '') {
+	previousLink = previousText;
+ }
+ var albumLink = "<img border=0 alt='Back to album index' src='home.jpg'>";
+ if (typeof albumText != 'undefined' && albumText !== '') {
+	albumLink = albumText;
+ }
+ var nextLink = "<img border=0 alt='Next item' src='next.jpg'>";
+ if (typeof nextText != 'undefined' && nextText !== '') {
+	nextLink = nextText;
+ }
+ $("<div class='pwa-navigation'>");
+ if (photo_array.length > 1) { $("<a class='pwa-navigation-link' href='"+prev+"'>" + previousLink + "</a>"); }
+ $("<a class='pwa-navigation-link' href='"+album_base_path+"'>" + albumLink + "</a>");
+ if (photo_array.length > 1) { $("<a class='pwa-navigation-link' href='"+next+"'>" + nextLink + "</a>"); }
  $("</div>");
 
  var max_width = 658; //max width for our photos
@@ -282,7 +294,7 @@ if (n1 == null) //we're at the last picture in the album; going forward takes us
   }
  }
  
- $("<div class='pwaItem'>");
+ $("<div class='pwa-item'>");
  if (is_video) {
   $("<video width='480' height='360' controls><source src='" + j.entry.media$group.media$content[2].url + "' type='video/mp4'><object data='" + j.entry.media$group.media$content[2].url + "' width='480' height='360'></object></video>");
  } else {
