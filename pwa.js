@@ -71,8 +71,8 @@ function picasaweb(j){ //returns the list of all albums for the user
   var id_end = j.feed.entry[i].id.$t.indexOf('?');
   var id_base = j.feed.entry[i].id.$t.slice(id_begin, id_end);
 
-  $("<td valign=top><a class='standard' href='?albumid="+id_base+"'><img src='"+img_base+"?imgmax=160&crop=1' class='pwimages' /></a>");
-  $("<br><table border=0><tr><td></td></tr></table><center><a class='standard' href='?albumid="+id_base+"'>"+ j.feed.entry[i].title.$t +"</a></center></td>");
+  $("<td valign=top class='pwa-album'><a class='pwa-link' href='?albumid="+id_base+"'><img src='"+img_base+"?imgmax=160&crop=1' class='pwimages' /></a>");
+  $("<br><table border=0><tr><td></td></tr></table><center><a class='pwa-link' href='?albumid="+id_base+"'>"+ j.feed.entry[i].title.$t +"</a></center></td>");
   if (i % columns == columns-1) {
     $("</tr><tr><td><br></td></tr> <tr><td></td></tr> <tr>");
   }
@@ -118,9 +118,6 @@ function getphotolist(j){
  }
 }
 
-
-
-
 function albums(j){  //returns all photos in a specific album
 
  //get the number of photos in the album
@@ -153,7 +150,7 @@ function albums(j){  //returns all photos in a specific album
   // note: this is probably not necessary now that we're no longer passing the photoarray inside the URL. 7/17/2007
   // Not a bad idea to leave it in, though, in case something goes seriously wrong and we need to revert to that method.
   if (link_url.length > 2048) { link_url = link_url.slice(0, link_url.indexOf('&photoids=')+10)+id_base; }
-  $("<td valign=top><a href='"+link_url+"'><img src='"+img_base+"?imgmax=160&crop=1' class='pwimages' /></a>");
+  $("<td valign=top class='pwa-item'><a href='"+link_url+"'><img src='"+img_base+"?imgmax=160&crop=1' class='pwimages' /></a>");
   $("</td>");
 
   if (i % columns == columns-1) {
@@ -179,15 +176,12 @@ function photo(j){//returns exactly one photo
 
  var img_base = j.entry.media$group.media$content[0].url;
 
- // is this a video? If so, we will display that in the breadcrumbs below.
- var is_video = 0;
- if (j.entry.media$group.media$content.length > 1)
- {
-   //$('This is a '+j.entry.media$group.media$content[1].medium+'.<br>');
-   if (j.entry.media$group.media$content[1].medium == "video")
-   {
-	   is_video = 1;
-   }
+ // is this a video?
+ var is_video = false;
+ if (j.entry.media$group.media$content.length > 2) {
+  if (j.entry.media$group.media$content[2].medium == "video") {
+   is_video = true;
+  }
  }
  
  var photo_begin = j.entry.summary.$t.indexOf('href="')+6;
@@ -287,14 +281,7 @@ if (n1 == null) //we're at the last picture in the album; going forward takes us
  if (img_width < display_width)
    { display_width = img_width; } //don't scale up photos that are narrower than our max width; disable this to set all photos to max width
 
- //at long last, display the image and its description. photos larger than max_width are scaled down; smaller ones are left alone
- var is_video = false;
- if (j.entry.media$group.media$content.length > 2) {
-  if (j.entry.media$group.media$content[2].medium == "video") {
-   is_video = true;
-  }
- }
- 
+ //at long last, display the image and its description. photos larger than max_width are scaled down; smaller ones are left alone 
  $("<div class='pwa-item'>");
  if (is_video) {
   var autoplay_attribute = '';
