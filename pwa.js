@@ -13,7 +13,8 @@
 /* pwa.js: a drop-in JavaScript utility that displays galleries from picasaweb.google.com in your website */
 
 /*
- * Modified by Peter Morlion to support Picasa videos (http://petermorlion.blogspot.com, @petermorlion).
+ * Modified by Peter Morlion (http://petermorlion.blogspot.com, @petermorlion) to support Picasa videos 
+ * and use a more modern (divs and css) approach to the HTML.
  */
 
 /* This JavaScript file, when called from a webpage, will load all the thumbnail images of all the galleries
