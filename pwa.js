@@ -286,7 +286,13 @@ if (n1 == null) //we're at the last picture in the album; going forward takes us
  if (is_video) {
   var autoplay_attribute = '';
   if (autoplay) { autoplay_attribute = 'autoplay'; }
-  $("<video width='480' height='360' controls " + autoplay_attribute + "><source src='" + j.entry.media$group.media$content[2].url + "' type='video/mp4'><object data='" + j.entry.media$group.media$content[2].url + "' width='480' height='360'></object></video>");
+  var html5_video_url = j.entry.media$group.media$content[2].url;
+  $("<video width='480' height='360' controls " + autoplay_attribute + "><source src='" + html5_video_url + "' type='video/mp4'>");
+  if (flashPlayerUrl) {
+	var flashVars = "config={\"playlist\":[\"" + encodeURIComponent(photo_link) + "\",{\"url\":\"" + encodeURIComponent(html5_video_url) + "\",\"autoPlay\":" + autoplay + "}]}";
+    $("<object data='" + flashPlayerUrl + "' width='480' height='360'><param name='movie' value='" + flashPlayerUrl + "' /><param name='allowFullScreen' value='true' /><param name='wmode' value='transparent' /><param name='flashVars' value='" + flashVars + "' /></object>");
+  }
+  $("</video>");
  } else {
   $("<a border=0 target=PICASA href='"+photo_link+"'><img id='picture' width="+display_width+" src='"+img_base+"?imgmax="+photosize+"' class='pwimages' /></a>");
  }
