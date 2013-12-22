@@ -103,9 +103,7 @@ function picasaweb(j) { //returns the list of all albums for the user
         var id_base = j.feed.entry[i].id.$t.slice(id_begin, id_end);
 
         $("<td valign=top class='pwa-album'>");
-        $("    <a class='pwa-link' href='?albumid=" + id_base + "'>");
-        $("        <img src='" + img_base + "?imgmax=160&crop=1' class='pwimages' />");
-        $("    </a>");
+        $("    <a class='pwa-link' href='?albumid=" + id_base + "'><img src='" + img_base + "?imgmax=160&crop=1' class='pwimages' /></a>");
         $("    <br><a class='pwa-link' href='?albumid=" + id_base + "'>" + j.feed.entry[i].title.$t + "</a>");
         $("</td>");
         if (i % columns == columns - 1) {
