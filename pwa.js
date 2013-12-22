@@ -82,13 +82,14 @@ var my_numpics = ""; //this is used globally to store the number of items in a p
 var prev = ""; //used in the navigation arrows when viewing a single item
 var next = ""; //used in the navigation arrows when viewing a single item
 var galleryHomeText = galleryHomeText || 'Gallery Home';
+var viewGalleryInPicasaText = viewGalleryInPicasaText || 'View this gallery in Picasa';
 var viewAlbumInPicasaText = viewAlbumInPicasaText || 'View this album in Picasa';
 
 function picasaweb(j) { //returns the list of all albums for the user
 
     $("<div style='margin-left:3px'>" + galleryHomeText + "</div>");
     $("<div style='text-align:right; margin-right:5px; margin-top:-14px'>");
-    $("    <a target=PICASA class='standard' href='http://picasaweb.google.com/" + username + "/'>View this gallery in Picasa</a>");
+    $("    <a target=PICASA class='standard' href='http://picasaweb.google.com/" + username + "/'>" + viewGalleryInPicasaText + "</a>");
     $("</div>");
     $("<table border=0><tr>");
 
