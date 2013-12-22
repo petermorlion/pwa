@@ -82,6 +82,7 @@ var my_numpics = ""; //this is used globally to store the number of items in a p
 var prev = ""; //used in the navigation arrows when viewing a single item
 var next = ""; //used in the navigation arrows when viewing a single item
 var galleryHomeText = galleryHomeText || 'Gallery Home';
+var viewAlbumInPicasaText = viewAlbumInPicasaText || 'View this album in Picasa';
 
 function picasaweb(j) { //returns the list of all albums for the user
 
@@ -152,9 +153,9 @@ function getphotolist(j) {
 function albums(j) { //returns all photos in a specific album
 
     //get the number of photos in the album
-    var np = j.feed.openSearch$totalResults.$t;
+    var photoCount = j.feed.openSearch$totalResults.$t;
     var item_plural = "s";
-    if (np == "1") {
+    if (photoCount == "1") {
         item_plural = "";
     }
 
@@ -163,7 +164,14 @@ function albums(j) { //returns all photos in a specific album
     var album_link = j.feed.entry[0].summary.$t.slice(album_begin, album_end);
     var photoids = new Array();
 
-    $("<div style='margin-left:3px'><a class='standard' href='" + window.location.protocol + "//" + window.location.hostname + window.location.pathname + "'>Gallery Home</a> &gt; " + j.feed.title.$t + "&nbsp;&nbsp;[" + np + " item" + item_plural + "]</div><div style='text-align:right; margin-right:5px; margin-top:-14px'><a target=PICASA class='standard' href='" + album_link + "'>View this album in Picasa</a></div><br>");
+    var galleryHomeLink = window.location.protocol + "//" + window.location.hostname + window.location.pathname;
+    $("<div style='margin-left:3px'>");
+    $("    <a class='standard' href='" + galleryHomeLink + "'>" + galleryHomeText + "</a> &gt; " + j.feed.title.$t + "&nbsp;&nbsp;[" + photoCount + " item" + item_plural + "]");
+    $("</div>");
+    $("<div style='text-align:right; margin-right:5px; margin-top:-14px'>");
+    $("    <a target=PICASA class='standard' href='" + album_link + "'>" + viewAlbumInPicasaText + "</a>");
+    $("</div>");
+    
     $("<table border=0><tr>");
 
     for (i = 0; i < j.feed.entry.length; i++) {
@@ -185,15 +193,16 @@ function albums(j) { //returns all photos in a specific album
         if (link_url.length > 2048) {
             link_url = link_url.slice(0, link_url.indexOf('&photoids=') + 10) + id_base;
         }
-        $("<td valign=top class='pwa-item'><a href='" + link_url + "'><img src='" + img_base + "?imgmax=160&crop=1' class='pwimages' /></a>");
+        $("<td valign=top class='pwa-item'>");
+        $("    <a href='" + link_url + "'><img src='" + img_base + "?imgmax=160&crop=1' class='pwimages' /></a>");
         $("</td>");
 
         if (i % columns == columns - 1) {
-            $("</tr><tr><td><br></td></tr><tr>");
+            $("</tr> <tr>");
         }
     }
-    $("</tr></table>");
 
+    $("</tr></table>");
 }
 
 function photo(j) { //returns exactly one photo
