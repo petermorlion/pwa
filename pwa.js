@@ -81,10 +81,14 @@ var album_name = ""; //this is used globally to store the album name, so we don'
 var my_numpics = ""; //this is used globally to store the number of items in a particular album, so we don't have to pass it around in the URL anymore either.
 var prev = ""; //used in the navigation arrows when viewing a single item
 var next = ""; //used in the navigation arrows when viewing a single item
+var galleryHomeText = galleryHomeText || 'Gallery Home';
 
 function picasaweb(j) { //returns the list of all albums for the user
 
-    $("<div style='margin-left:3px'>Gallery Home</div><div style='text-align:right; margin-right:5px; margin-top:-14px'><a target=PICASA class='standard' href='http://picasaweb.google.com/" + username + "/'>View this gallery in Picasa</a></div><br>");
+    $("<div style='margin-left:3px'>" + galleryHomeText + "</div>");
+    $("<div style='text-align:right; margin-right:5px; margin-top:-14px'>");
+    $("    <a target=PICASA class='standard' href='http://picasaweb.google.com/" + username + "/'>View this gallery in Picasa</a>");
+    $("</div>");
     $("<table border=0><tr>");
 
     for (i = 0; i < j.feed.entry.length; i++) {
@@ -98,10 +102,14 @@ function picasaweb(j) { //returns the list of all albums for the user
         var id_end = j.feed.entry[i].id.$t.indexOf('?');
         var id_base = j.feed.entry[i].id.$t.slice(id_begin, id_end);
 
-        $("<td valign=top class='pwa-album'><a class='pwa-link' href='?albumid=" + id_base + "'><img src='" + img_base + "?imgmax=160&crop=1' class='pwimages' /></a>");
-        $("<br><table border=0><tr><td></td></tr></table><center><a class='pwa-link' href='?albumid=" + id_base + "'>" + j.feed.entry[i].title.$t + "</a></center></td>");
+        $("<td valign=top class='pwa-album'>");
+        $("    <a class='pwa-link' href='?albumid=" + id_base + "'>");
+        $("        <img src='" + img_base + "?imgmax=160&crop=1' class='pwimages' />");
+        $("    </a>");
+        $("    <br><a class='pwa-link' href='?albumid=" + id_base + "'>" + j.feed.entry[i].title.$t + "</a>");
+        $("</td>");
         if (i % columns == columns - 1) {
-            $("</tr><tr><td><br></td></tr> <tr><td></td></tr> <tr>");
+            $("</tr> <tr>");
         }
     }
     $("</tr></table>");
