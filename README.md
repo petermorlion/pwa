@@ -17,6 +17,8 @@ Usage is easy (check the included example.html for an example). Include this jav
     <script type="text/javascript" src="./pwa.js"></script>
 
 ###Options
+Options are provided by declaring global variables. This is not a best-practice and I hope to change that in the future. Meanwhile, these are the available options:
+
 * username: this is the username of your PicasaWeb account
 * photosize: the size to display single images
 * columns: the amount of columns to display all albums and all images in an album
@@ -24,12 +26,13 @@ Usage is easy (check the included example.html for an example). Include this jav
 * previousText: the text of the 'previous' link
 * albumText: the text of the 'album' link
 * autoplay: true if you want videos to start playing automatically
+* albumid: the id of an album if you want to display an album immediately (i.e. without showing the album overview first)
+* photoid: the id of a photo if you want to display a photo immediately (i.e. without showing the contents of the album first). You must also specify the albumid to use this.
 	
 ###Upcoming features
 When I find the time, I would like to add:
 * Flash support for videos (working on it now, experimental)
 * Add more options for translation, link texts, link images (i.e. for previous and next links),...
-* Easily show just one album
 * Easily show a slideshow (that might be a separate script)
 * Change usage so you don't have to add the code in your head tag, but anywhere you want the albums to appear.
 * A better way of passing options (not via global variables)

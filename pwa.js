@@ -84,6 +84,8 @@ var next = ""; //used in the navigation arrows when viewing a single item
 var galleryHomeText = galleryHomeText || 'Gallery Home';
 var viewGalleryInPicasaText = viewGalleryInPicasaText || 'View this gallery in Picasa';
 var viewAlbumInPicasaText = viewAlbumInPicasaText || 'View this album in Picasa';
+var albumid = albumid || _GET['albumid'];
+var photoid = photoid || _GET['photoid'];
 
 function picasaweb(j) { //returns the list of all albums for the user
 
@@ -187,7 +189,7 @@ function albums(j) { //returns all photos in a specific album
         // display the thumbnail (in a table) and make the link to the photo page, including the gallery name so it can be displayed.
         // (apparently the gallery name isn't in the photo feed from the Picasa API, so we need to pass it as an argument in the URL) - removed the gallery name 
 
-        var link_url = "?albumid=" + _GET['albumid'] + "&photoid=" + id_base; //+"&photoids="+photoids;
+        var link_url = "?albumid=" + albumid + "&photoid=" + id_base; //+"&photoids="+photoids;
         // disable the navigation entirely for really long URLs so we don't hit against the URL length limit.
         // note: this is probably not necessary now that we're no longer passing the photoarray inside the URL. 7/17/2007
         // Not a bad idea to leave it in, though, in case something goes seriously wrong and we need to revert to that method.
@@ -232,16 +234,14 @@ function photo(j) { //returns exactly one photo
     var photo_begin = j.entry.summary.$t.indexOf('href="') + 6;
     var photo_end = j.entry.summary.$t.indexOf('"><img');
     var photo_link = j.entry.summary.$t.slice(photo_begin, photo_end);
-    var photo_id = _GET['photoid'];
 
-    var album_id = _GET['albumid'];
     var my_next = next;
     var my_prev = prev;
     var photo_array = photolist;
 
     var my_galleryname = album_name;
     var my_fixed_galleryname = album_name;
-    var album_base_path = window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?albumid=" + _GET['albumid'];
+    var album_base_path = window.location.protocol + "//" + window.location.hostname + window.location.pathname + "?albumid=" + albumid;
 
     // Get the filename for display in the breadcrumbs
     var LastSlash = 0;
@@ -264,7 +264,7 @@ function photo(j) { //returns exactly one photo
     //the arrows are already linked to the previous and next pics, which were passed in with the URL.
     //however, we need the ones that are two behind and two ahead so that we can pass that info along when we link to another photo.
     for (i = 0; i < photo_array.length; i++) {
-        if (photo_array[i] == photo_id) {
+        if (photo_array[i] == photoid) {
             var p1 = photo_array[i - 1]; //ID of the picture one behind this one; if null, we're at the beginning of the album
             var current_index = i + 1; //this is the count of the current photo
             var n1 = photo_array[i + 1]; //ID of the picture one ahead of this one; if null, we're at the end of the album
@@ -357,14 +357,14 @@ function photo(j) { //returns exactly one photo
 
 }
 
-if (_GET['photoid'] && _GET['albumid']) {
+if (photoid && albumid) {
 
-    $('<script type="text/javascript" src="http://picasaweb.google.com/data/feed/base/user/' + username + '/albumid/' + _GET['albumid'] + '?category=photo&alt=json&callback=getphotolist"></script>'); //get the list of photos in the album and put it in the global "photolist" array so we can properly display the navigation arrows; this eliminates the need for really long URLs :-) 7/16/2007
+    $('<script type="text/javascript" src="http://picasaweb.google.com/data/feed/base/user/' + username + '/albumid/' + albumid + '?category=photo&alt=json&callback=getphotolist"></script>'); //get the list of photos in the album and put it in the global "photolist" array so we can properly display the navigation arrows; this eliminates the need for really long URLs :-) 7/16/2007
 
-    $('<script type="text/javascript" src="http://picasaweb.google.com/data/entry/base/user/' + username + '/albumid/' + _GET['albumid'] + '/photoid/' + _GET['photoid'] + '?alt=json&callback=photo"></script>'); //photo
+    $('<script type="text/javascript" src="http://picasaweb.google.com/data/entry/base/user/' + username + '/albumid/' + albumid + '/photoid/' + photoid + '?alt=json&callback=photo"></script>'); //photo
 
-} else if (_GET['albumid'] && !_GET['photoid']) {
-    $('<script type="text/javascript" src="http://picasaweb.google.com/data/feed/base/user/' + username + '/albumid/' + _GET['albumid'] + '?category=photo&alt=json&callback=albums"></script>'); //albums
+} else if (albumid && !photoid) {
+    $('<script type="text/javascript" src="http://picasaweb.google.com/data/feed/base/user/' + username + '/albumid/' + albumid + '?category=photo&alt=json&callback=albums"></script>'); //albums
 } else {
     $('<script type="text/javascript" src="http://picasaweb.google.com/data/feed/base/user/' + username + '?category=album&alt=json&callback=picasaweb&access=public"></script>'); //picasaweb
 }
