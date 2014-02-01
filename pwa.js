@@ -86,6 +86,7 @@ var viewGalleryInPicasaText = viewGalleryInPicasaText || 'View this gallery in P
 var viewAlbumInPicasaText = viewAlbumInPicasaText || 'View this album in Picasa';
 var albumid = albumid || _GET['albumid'];
 var photoid = photoid || _GET['photoid'];
+var video_not_supported_text = video_not_supported_text || "Your browser does not support HTML5 video.";
 
 function picasaweb(j) { //returns the list of all albums for the user
 
@@ -342,10 +343,7 @@ function photo(j) { //returns exactly one photo
         }
         var html5_video_url = j.entry.media$group.media$content[2].url;
         $("<video width='480' height='360' controls " + autoplay_attribute + "><source src='" + html5_video_url + "' type='video/mp4'>");
-        if (flashPlayerUrl) {
-            var flashVars = "config={\"playlist\":[\"" + encodeURIComponent(photo_link) + "\",{\"url\":\"" + encodeURIComponent(html5_video_url) + "\",\"autoPlay\":" + autoplay + "}]}";
-            $("<object data='" + flashPlayerUrl + "' width='480' height='360'><param name='movie' value='" + flashPlayerUrl + "' /><param name='allowFullScreen' value='true' /><param name='wmode' value='transparent' /><param name='flashVars' value='" + flashVars + "' /></object>");
-        }
+        $(video_not_supported_text);
         $("</video>");
     } else {
         $("<a border=0 target=PICASA href='" + photo_link + "'><img id='picture' width=" + display_width + " src='" + img_base + "?imgmax=" + photosize + "' class='pwimages' /></a>");
