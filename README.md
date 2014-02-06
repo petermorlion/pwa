@@ -31,7 +31,6 @@ Options are provided by declaring global variables. This is not a best-practice 
 	
 ###Upcoming features
 When I find the time, I would like to add:
-* Flash support for videos (working on it now, experimental)
 * Add more options for translation, link texts, link images (i.e. for previous and next links),...
 * Easily show a slideshow (that might be a separate script)
 * Change usage so you don't have to add the code in your head tag, but anywhere you want the albums to appear.
