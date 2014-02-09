@@ -1,18 +1,16 @@
 /*
- * @author      Jesse Berman
- * @copyright   2008-01-31
- * @version     1.0
+ * @author      Peter MorlionJesse Berman
+ * @version     2.0
  * @license     http://www.gnu.org/copyleft/lesser.html
  */
+/* I tried to contact the original author, Jesse Berman (and Dieter Raber), but couldn't get a response. My initial
+ * idea was to add support for Picasa videos and use a more modern approach to the HTML (using div elements and adding
+ * css classes). No I just add features as needed and when I find time.
+ */
 /*
- * Portions by Dieter Raber <dieter@dieterraber.net>
- * copyright   2004-12-27
+ * Jesse Berman worked on this in 2008, Diter Raber in 2004.
  */
 /* pwa.js: a drop-in JavaScript utility that displays galleries from picasaweb.google.com in your website */
-/*
- * Modified by Peter Morlion (http://petermorlion.blogspot.com, @petermorlion) to support Picasa videos
- * and use a more modern (divs and css) approach to the HTML.
- */
 /* This JavaScript file, when called from a webpage, will load all the thumbnail images of all the galleries
    in a user's Picasa Web Albums account into an HTML table that's 4 rows wide.  Clicking on any of the
    galleries will display thumbnails of all the photos in that gallery, and clicking on any of those thumbnails

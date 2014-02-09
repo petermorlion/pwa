@@ -28,6 +28,9 @@ Options are provided by declaring global variables. This is not a best-practice 
 * autoplay: true if you want videos to start playing automatically
 * albumid: the id of an album if you want to display an album immediately (i.e. without showing the album overview first)
 * photoid: the id of a photo if you want to display a photo immediately (i.e. without showing the contents of the album first). You must also specify the albumid to use this.
+* galleryHomeText: the text to go back to the root level, showing all galleries
+* viewGalleryInPicasaText: the text for a link to the gallery in Picasa
+* viewAlbumInPicasaText: the text for a link to the album in Picasa
 	
 ###Upcoming features
 When I find the time, I would like to add:
