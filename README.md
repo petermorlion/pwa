@@ -47,5 +47,3 @@ The script is based on the pwa script by Jesse Berman and Dieter Raber. The modi
 * [Twitter](http://www.twitter.com/petermorlion)
 * [GitHub](http://github.com/petermorlion)
 * [Blog](http://petermorlion.blogspot.com)
-
-Dieter Raber's email address is mentioned in the script (dieter@dieterraber.net), but I couldn't reach him (my emails bounced).
