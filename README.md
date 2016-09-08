@@ -1,3 +1,7 @@
+** Update **
+
+No longer maintained, see below for details.
+
 ##pwa
 
 pwa is an easy-to use javascript library to display Google Picasa Web albums in your website.
@@ -38,6 +42,12 @@ When I find the time, I would like to add:
 * Easily show a slideshow (that might be a separate script)
 * Change usage so you don't have to add the code in your head tag, but anywhere you want the albums to appear.
 * A better way of passing options (not via global variables)
+* 
+
+** Update **
+Time moves on, interests change and needs evolve. I am no longer maintaining this library. Also, [Google is moving
+away from Picasa Web Albums](http://googlephotos.blogspot.be/2016/02/moving-on-from-picasa.html), so this library
+will become less and less relevant.
 
 ###Origin
 
