@@ -1,4 +1,4 @@
-** Update **
+**Update**
 
 No longer maintained, see below for details.
 
@@ -44,7 +44,7 @@ When I find the time, I would like to add:
 * A better way of passing options (not via global variables)
 * 
 
-** Update **
+**Update**
 Time moves on, interests change and needs evolve. I am no longer maintaining this library. Also, [Google is moving
 away from Picasa Web Albums](http://googlephotos.blogspot.be/2016/02/moving-on-from-picasa.html), so this library
 will become less and less relevant.
